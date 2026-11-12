@@ -1,10 +1,12 @@
 import { z } from 'zod';
     import { zendeskClient } from '../zendesk-client.js';
+    import { DESTRUCTIVE, READ_ONLY, WRITE } from './annotations.js';
 
     export const automationsTools = [
       {
         name: "list_automations",
         description: "List automations in Zendesk",
+        annotations: READ_ONLY,
         schema: {
           page: z.number().optional().describe("Page number for pagination"),
           per_page: z.number().optional().describe("Number of automations per page (max 100)")
@@ -30,6 +32,7 @@ import { z } from 'zod';
       {
         name: "get_automation",
         description: "Get a specific automation by ID",
+        annotations: READ_ONLY,
         schema: {
           id: z.number().describe("Automation ID")
         },
@@ -53,6 +56,7 @@ import { z } from 'zod';
       {
         name: "create_automation",
         description: "Create a new automation",
+        annotations: WRITE,
         schema: {
           title: z.string().describe("Automation title"),
           description: z.string().optional().describe("Automation description"),
@@ -100,6 +104,7 @@ import { z } from 'zod';
       {
         name: "update_automation",
         description: "Update an existing automation",
+        annotations: WRITE,
         schema: {
           id: z.number().describe("Automation ID to update"),
           title: z.string().optional().describe("Updated automation title"),
@@ -148,6 +153,7 @@ import { z } from 'zod';
       {
         name: "delete_automation",
         description: "Delete an automation",
+        annotations: DESTRUCTIVE,
         schema: {
           id: z.number().describe("Automation ID to delete")
         },

@@ -1,10 +1,12 @@
 import { z } from 'zod';
     import { zendeskClient } from '../zendesk-client.js';
+    import { DESTRUCTIVE, READ_ONLY, WRITE } from './annotations.js';
 
     export const groupsTools = [
       {
         name: "list_groups",
         description: "List agent groups in Zendesk",
+        annotations: READ_ONLY,
         schema: {
           page: z.number().optional().describe("Page number for pagination"),
           per_page: z.number().optional().describe("Number of groups per page (max 100)")
@@ -30,6 +32,7 @@ import { z } from 'zod';
       {
         name: "get_group",
         description: "Get a specific group by ID",
+        annotations: READ_ONLY,
         schema: {
           id: z.number().describe("Group ID")
         },
@@ -53,6 +56,7 @@ import { z } from 'zod';
       {
         name: "create_group",
         description: "Create a new agent group",
+        annotations: WRITE,
         schema: {
           name: z.string().describe("Group name"),
           description: z.string().optional().describe("Group description")
@@ -82,6 +86,7 @@ import { z } from 'zod';
       {
         name: "update_group",
         description: "Update an existing group",
+        annotations: WRITE,
         schema: {
           id: z.number().describe("Group ID to update"),
           name: z.string().optional().describe("Updated group name"),
@@ -112,6 +117,7 @@ import { z } from 'zod';
       {
         name: "delete_group",
         description: "Delete a group",
+        annotations: DESTRUCTIVE,
         schema: {
           id: z.number().describe("Group ID to delete")
         },

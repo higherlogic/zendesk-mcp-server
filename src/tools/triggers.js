@@ -1,10 +1,12 @@
 import { z } from 'zod';
     import { zendeskClient } from '../zendesk-client.js';
+    import { DESTRUCTIVE, READ_ONLY, WRITE } from './annotations.js';
 
     export const triggersTools = [
       {
         name: "list_triggers",
         description: "List triggers in Zendesk",
+        annotations: READ_ONLY,
         schema: {
           page: z.number().optional().describe("Page number for pagination"),
           per_page: z.number().optional().describe("Number of triggers per page (max 100)")
@@ -30,6 +32,7 @@ import { z } from 'zod';
       {
         name: "get_trigger",
         description: "Get a specific trigger by ID",
+        annotations: READ_ONLY,
         schema: {
           id: z.number().describe("Trigger ID")
         },
@@ -53,6 +56,7 @@ import { z } from 'zod';
       {
         name: "create_trigger",
         description: "Create a new trigger",
+        annotations: WRITE,
         schema: {
           title: z.string().describe("Trigger title"),
           description: z.string().optional().describe("Trigger description"),
@@ -100,6 +104,7 @@ import { z } from 'zod';
       {
         name: "update_trigger",
         description: "Update an existing trigger",
+        annotations: WRITE,
         schema: {
           id: z.number().describe("Trigger ID to update"),
           title: z.string().optional().describe("Updated trigger title"),
@@ -148,6 +153,7 @@ import { z } from 'zod';
       {
         name: "delete_trigger",
         description: "Delete a trigger",
+        annotations: DESTRUCTIVE,
         schema: {
           id: z.number().describe("Trigger ID to delete")
         },
