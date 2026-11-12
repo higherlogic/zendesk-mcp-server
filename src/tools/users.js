@@ -1,10 +1,12 @@
 import { z } from 'zod';
     import { zendeskClient } from '../zendesk-client.js';
+    import { DESTRUCTIVE, READ_ONLY, WRITE } from './annotations.js';
 
     export const usersTools = [
       {
         name: "list_users",
         description: "List users in Zendesk",
+        annotations: READ_ONLY,
         schema: {
           page: z.number().optional().describe("Page number for pagination"),
           per_page: z.number().optional().describe("Number of users per page (max 100)"),
@@ -31,6 +33,7 @@ import { z } from 'zod';
       {
         name: "get_user",
         description: "Get a specific user by ID",
+        annotations: READ_ONLY,
         schema: {
           id: z.number().describe("User ID")
         },
@@ -54,6 +57,7 @@ import { z } from 'zod';
       {
         name: "create_user",
         description: "Create a new user",
+        annotations: WRITE,
         schema: {
           name: z.string().describe("User's full name"),
           email: z.string().email().describe("User's email address"),
@@ -93,6 +97,7 @@ import { z } from 'zod';
       {
         name: "update_user",
         description: "Update an existing user",
+        annotations: WRITE,
         schema: {
           id: z.number().describe("User ID to update"),
           name: z.string().optional().describe("Updated user's name"),
@@ -133,6 +138,7 @@ import { z } from 'zod';
       {
         name: "delete_user",
         description: "Delete a user",
+        annotations: DESTRUCTIVE,
         schema: {
           id: z.number().describe("User ID to delete")
         },

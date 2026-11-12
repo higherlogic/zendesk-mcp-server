@@ -1,10 +1,12 @@
 import { z } from 'zod';
     import { zendeskClient } from '../zendesk-client.js';
+    import { DESTRUCTIVE, READ_ONLY, WRITE } from './annotations.js';
 
     export const helpCenterTools = [
       {
         name: "list_articles",
         description: "List Help Center articles",
+        annotations: READ_ONLY,
         schema: {
           page: z.number().optional().describe("Page number for pagination"),
           per_page: z.number().optional().describe("Number of articles per page (max 100)"),
@@ -32,6 +34,7 @@ import { z } from 'zod';
       {
         name: "get_article",
         description: "Get a specific Help Center article by ID",
+        annotations: READ_ONLY,
         schema: {
           id: z.number().describe("Article ID")
         },
@@ -55,6 +58,7 @@ import { z } from 'zod';
       {
         name: "create_article",
         description: "Create a new Help Center article",
+        annotations: WRITE,
         schema: {
           title: z.string().describe("Article title"),
           body: z.string().describe("Article body content (HTML)"),
@@ -95,6 +99,7 @@ import { z } from 'zod';
       {
         name: "update_article",
         description: "Update an existing Help Center article",
+        annotations: WRITE,
         schema: {
           id: z.number().describe("Article ID to update"),
           title: z.string().optional().describe("Updated article title"),
@@ -135,6 +140,7 @@ import { z } from 'zod';
       {
         name: "delete_article",
         description: "Delete a Help Center article",
+        annotations: DESTRUCTIVE,
         schema: {
           id: z.number().describe("Article ID to delete")
         },

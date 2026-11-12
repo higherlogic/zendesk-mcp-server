@@ -1,10 +1,12 @@
 import { z } from 'zod';
     import { zendeskClient } from '../zendesk-client.js';
+    import { DESTRUCTIVE, READ_ONLY, WRITE } from './annotations.js';
 
     export const viewsTools = [
       {
         name: "list_views",
         description: "List views in Zendesk",
+        annotations: READ_ONLY,
         schema: {
           page: z.number().optional().describe("Page number for pagination"),
           per_page: z.number().optional().describe("Number of views per page (max 100)")
@@ -30,6 +32,7 @@ import { z } from 'zod';
       {
         name: "get_view",
         description: "Get a specific view by ID",
+        annotations: READ_ONLY,
         schema: {
           id: z.number().describe("View ID")
         },
@@ -53,6 +56,7 @@ import { z } from 'zod';
       {
         name: "create_view",
         description: "Create a new view",
+        annotations: WRITE,
         schema: {
           title: z.string().describe("View title"),
           description: z.string().optional().describe("View description"),
@@ -95,6 +99,7 @@ import { z } from 'zod';
       {
         name: "update_view",
         description: "Update an existing view",
+        annotations: WRITE,
         schema: {
           id: z.number().describe("View ID to update"),
           title: z.string().optional().describe("Updated view title"),
@@ -138,6 +143,7 @@ import { z } from 'zod';
       {
         name: "delete_view",
         description: "Delete a view",
+        annotations: DESTRUCTIVE,
         schema: {
           id: z.number().describe("View ID to delete")
         },

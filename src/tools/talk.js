@@ -1,10 +1,12 @@
 import { z } from 'zod';
     import { zendeskClient } from '../zendesk-client.js';
+    import { READ_ONLY } from './annotations.js';
 
     export const talkTools = [
       {
         name: "get_talk_stats",
         description: "Get Zendesk Talk statistics",
+        annotations: READ_ONLY,
         schema: {},
         handler: async () => {
           try {

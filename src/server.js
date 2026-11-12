@@ -40,11 +40,14 @@ import { McpServer, ResourceTemplate } from '@modelcontextprotocol/sdk/server/mc
 
     // Register each tool with the server
     allTools.forEach(tool => {
-      server.tool(
+      server.registerTool(
         tool.name,
-        tool.schema,
-        tool.handler,
-        { description: tool.description }
+        {
+          description: tool.description,
+          inputSchema: tool.schema,
+          annotations: tool.annotations
+        },
+        tool.handler
       );
     });
 

@@ -1,10 +1,12 @@
 import { z } from 'zod';
     import { zendeskClient } from '../zendesk-client.js';
+    import { READ_ONLY } from './annotations.js';
 
     export const chatTools = [
       {
         name: "list_chats",
         description: "List Zendesk Chat conversations",
+        annotations: READ_ONLY,
         schema: {
           page: z.number().optional().describe("Page number for pagination"),
           per_page: z.number().optional().describe("Number of chats per page (max 100)")

@@ -1,5 +1,6 @@
 import { z } from 'zod';
     import { zendeskClient } from '../zendesk-client.js';
+    import { READ_ONLY } from './annotations.js';
 
     export const supportTools = [
       // This is a placeholder for additional Support-specific tools
@@ -7,6 +8,7 @@ import { z } from 'zod';
       {
         name: "support_info",
         description: "Get information about Zendesk Support configuration",
+        annotations: READ_ONLY,
         schema: {},
         handler: async () => {
           try {

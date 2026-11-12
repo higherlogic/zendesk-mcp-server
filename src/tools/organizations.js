@@ -1,10 +1,12 @@
 import { z } from 'zod';
     import { zendeskClient } from '../zendesk-client.js';
+    import { DESTRUCTIVE, READ_ONLY, WRITE } from './annotations.js';
 
     export const organizationsTools = [
       {
         name: "list_organizations",
         description: "List organizations in Zendesk",
+        annotations: READ_ONLY,
         schema: {
           page: z.number().optional().describe("Page number for pagination"),
           per_page: z.number().optional().describe("Number of organizations per page (max 100)")
@@ -30,6 +32,7 @@ import { z } from 'zod';
       {
         name: "get_organization",
         description: "Get a specific organization by ID",
+        annotations: READ_ONLY,
         schema: {
           id: z.number().describe("Organization ID")
         },
@@ -53,6 +56,7 @@ import { z } from 'zod';
       {
         name: "create_organization",
         description: "Create a new organization",
+        annotations: WRITE,
         schema: {
           name: z.string().describe("Organization name"),
           domain_names: z.array(z.string()).optional().describe("Domain names for the organization"),
@@ -88,6 +92,7 @@ import { z } from 'zod';
       {
         name: "update_organization",
         description: "Update an existing organization",
+        annotations: WRITE,
         schema: {
           id: z.number().describe("Organization ID to update"),
           name: z.string().optional().describe("Updated organization name"),
@@ -124,6 +129,7 @@ import { z } from 'zod';
       {
         name: "delete_organization",
         description: "Delete an organization",
+        annotations: DESTRUCTIVE,
         schema: {
           id: z.number().describe("Organization ID to delete")
         },

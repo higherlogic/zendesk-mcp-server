@@ -1,10 +1,12 @@
 import { z } from 'zod';
     import { zendeskClient } from '../zendesk-client.js';
+    import { DESTRUCTIVE, READ_ONLY, WRITE } from './annotations.js';
 
     export const macrosTools = [
       {
         name: "list_macros",
         description: "List macros in Zendesk",
+        annotations: READ_ONLY,
         schema: {
           page: z.number().optional().describe("Page number for pagination"),
           per_page: z.number().optional().describe("Number of macros per page (max 100)")
@@ -30,6 +32,7 @@ import { z } from 'zod';
       {
         name: "get_macro",
         description: "Get a specific macro by ID",
+        annotations: READ_ONLY,
         schema: {
           id: z.number().describe("Macro ID")
         },
@@ -53,6 +56,7 @@ import { z } from 'zod';
       {
         name: "create_macro",
         description: "Create a new macro",
+        annotations: WRITE,
         schema: {
           title: z.string().describe("Macro title"),
           description: z.string().optional().describe("Macro description"),
@@ -87,6 +91,7 @@ import { z } from 'zod';
       {
         name: "update_macro",
         description: "Update an existing macro",
+        annotations: WRITE,
         schema: {
           id: z.number().describe("Macro ID to update"),
           title: z.string().optional().describe("Updated macro title"),
@@ -122,6 +127,7 @@ import { z } from 'zod';
       {
         name: "delete_macro",
         description: "Delete a macro",
+        annotations: DESTRUCTIVE,
         schema: {
           id: z.number().describe("Macro ID to delete")
         },

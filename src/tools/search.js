@@ -1,10 +1,12 @@
 import { z } from 'zod';
     import { zendeskClient } from '../zendesk-client.js';
+    import { READ_ONLY } from './annotations.js';
 
     export const searchTools = [
       {
         name: "search",
         description: "Search across Zendesk data",
+        annotations: READ_ONLY,
         schema: {
           query: z.string().describe("Search query string"),
           sort_by: z.string().optional().describe("Field to sort by"),

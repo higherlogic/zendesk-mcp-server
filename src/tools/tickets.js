@@ -1,10 +1,12 @@
 import { z } from 'zod';
     import { zendeskClient } from '../zendesk-client.js';
+    import { DESTRUCTIVE, READ_ONLY, WRITE } from './annotations.js';
 
     export const ticketsTools = [
       {
         name: "list_tickets",
         description: "List tickets in Zendesk",
+        annotations: READ_ONLY,
         schema: {
           page: z.number().optional().describe("Page number for pagination"),
           per_page: z.number().optional().describe("Number of tickets per page (max 100)"),
@@ -32,6 +34,7 @@ import { z } from 'zod';
       {
         name: "get_ticket",
         description: "Get a specific ticket by ID",
+        annotations: READ_ONLY,
         schema: {
           id: z.number().describe("Ticket ID")
         },
@@ -55,6 +58,7 @@ import { z } from 'zod';
       {
         name: "create_ticket",
         description: "Create a new ticket",
+        annotations: WRITE,
         schema: {
           subject: z.string().describe("Ticket subject"),
           comment: z.string().describe("Ticket comment/description"),
@@ -98,6 +102,7 @@ import { z } from 'zod';
       {
         name: "update_ticket",
         description: "Update an existing ticket",
+        annotations: WRITE,
         schema: {
           id: z.number().describe("Ticket ID to update"),
           subject: z.string().optional().describe("Updated ticket subject"),
@@ -140,6 +145,7 @@ import { z } from 'zod';
       {
         name: "delete_ticket",
         description: "Delete a ticket",
+        annotations: DESTRUCTIVE,
         schema: {
           id: z.number().describe("Ticket ID to delete")
         },
